@@ -6,6 +6,9 @@ info:
     Contract dùng cho Lab 04 Docker packaging, được đồng bộ lại với logic Lab 03.
     Payload chính dùng các trường device_id, metric, value, unit và timestamp.
     Boundary minh họa cho temperature là -40 đến 80.
+  contact:
+    name: FIT4110 Lab
+    email: lab@iot.local
 servers:
   - url: http://localhost:8000
     description: Local or Docker container service
@@ -191,6 +194,7 @@ paths:
       tags: [readings]
       operationId: getReadingById
       summary: Lấy chi tiết một bản ghi cảm biến
+      description: Trả về chi tiết một sensor reading theo reading_id
       parameters:
         - name: reading_id
           in: path

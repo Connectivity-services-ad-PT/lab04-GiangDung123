@@ -2,9 +2,17 @@ extends: spectral:oas
 
 rules:
   operation-description:
+    description: "Mỗi API phải có description"
     severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: description
+      function: truthy
 
   operation-tags:
-    severity: off
-
-  no-$ref-siblings: off
+    description: "Mỗi API phải có tags"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "mock:iot": "prism mock contracts/iot-ingestion.openapi.yaml --host 0.0.0.0 --port 4010",
-    "lint:openapi": "spectral lint contracts/*.yaml",
+    "lint:openapi": "spectral lint contracts/iot-ingestion.openapi.yaml --ruleset .spectral.yaml",
     "test:mock": "newman run postman/collections/FIT4110_lab04_iot_docker.postman_collection.json -e postman/environments/FIT4110_lab04_mock.postman_environment.json -r cli,junit,htmlextra --reporter-junit-export reports/newman-lab04-mock.xml --reporter-htmlextra-export reports/newman-lab04-mock.html",
     "test:local": "newman run postman/collections/FIT4110_lab04_iot_docker.postman_collection.json -e postman/environments/FIT4110_lab04_local.postman_environment.json -r cli,junit,htmlextra --reporter-junit-export reports/newman-lab04-local.xml --reporter-htmlextra-export reports/newman-lab04-local.html"
   },
