@@ -1,0 +1,10 @@
+extends: spectral:oas
+
+rules:
+  operation-description:
+    severity: error
+
+  operation-tags:
+    severity: off
+
+  no-$ref-siblings: off
