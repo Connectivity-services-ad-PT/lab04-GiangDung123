@@ -39,7 +39,7 @@ jobs:
           docker ps -a
 
           echo "===== CONTAINER LOGS ====="
-          docker logs fit4110-iot-lab04
+          docker logs fit4110-iot-lab04 || true
 
           echo "===== HEALTH CHECK ====="
           curl http://localhost:8000/health || true
