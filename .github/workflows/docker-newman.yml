@@ -33,6 +33,10 @@ jobs:
             -p 8000:8000 \
             --env-file .env.example \
             fit4110/iot-ingestion:lab04
+      - name: Debug container
+        run: |
+          docker ps -a
+          docker logs fit4110-iot-lab04 || true
 
       - name: Wait for service health
         run: npx wait-on http://localhost:8000/health --timeout 30000
