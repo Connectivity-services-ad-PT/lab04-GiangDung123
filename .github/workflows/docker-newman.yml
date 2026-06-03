@@ -28,24 +28,43 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker run -d --rm \
-            --name fit4110-iot-lab04 \
-            -p 8000:8000 \
-            --env-file .env.example \
-            fit4110/iot-ingestion:lab04
-      - name: Debug container
-        run: |
-          echo "===== DOCKER PS ====="
+          docker run -d --name fit4110-iot-lab04 \
+          -p 8000:8000 \
+          -e API_TOKEN=secret_api_token \
+          fit4110/iot-ingestion:lab04
+
+          sleep 10
+
+          echo "=== Docker PS ==="
           docker ps -a
 
-          echo "===== CONTAINER LOGS ====="
-          docker logs fit4110-iot-lab04 || true
+          echo "=== Container Logs ==="
+          docker logs fit4110-iot-lab04
 
-          echo "===== HEALTH CHECK ====="
-          curl http://localhost:8000/health || true
+          echo "=== Health Check ==="
+          curl -v http://localhost:8000/health || true
+       
+      - name: Debug container
+        run: |
+          echo "=== Docker PS ==="
+          docker ps -a
+
+          echo "=== Container Logs ==="
+          docker logs fit4110-iot-lab04
+
+          echo "=== Curl Health ==="
+          curl -v http://localhost:8000/health
 
       - name: Wait for service health
-        run: npx wait-on http://localhost:8000/health --timeout 30000
+        run: |
+          for i in {1..60}; do
+            curl -f http://localhost:8000/health && exit 0
+            sleep 2
+            done
+
+            echo "Health check failed"
+          docker logs fit4110-iot-lab04
+          exit 1
 
       - name: Run Newman against Docker container
         run: npm run test:local
